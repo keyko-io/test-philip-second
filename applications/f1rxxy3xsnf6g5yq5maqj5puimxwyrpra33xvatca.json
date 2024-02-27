@@ -13,7 +13,7 @@
   },
   "Project": {
     "Project Id": "33",
-    "Brief history of your project and organization": "details details ",
+    "Brief history of your project and organization": "details details",
     "Is this project associated with other projects/ecosystem stakeholders?": "Yes",
     "Describe the data being stored onto Filecoin": "Imaging data",
     "Where was the data currently stored in this dataset sourced from": "AWS Cloud",
