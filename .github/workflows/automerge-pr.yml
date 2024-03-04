@@ -19,22 +19,29 @@ on:
 jobs:
   automerge-pr:
     runs-on: ubuntu-latest
+    env:
+      DOMAIN: ${{ secrets.DOMAIN }}
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Call Backend to Validate Automerge Request
+        id: validate
+        run: |
+          USER_HANDLE="${{ github.actor }}"
+          REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+          OWNER_NAME="${{ github.repository_owner }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
 
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
+          echo "Calling backend to validate automerge with pr_number: $PR_NUMBER, user_handle: $USER_HANDLE, repo: $REPO_NAME, and owner: $OWNER_NAME"
+          RESPONSE=$(curl --header "Content-Type: application/json" \
+            --request POST \
+            --data '{"pr_number": "'$PR_NUMBER'", "user_handle": "'$USER_HANDLE'", "repo": "'$REPO_NAME'", "owner": "'$OWNER_NAME'"}' \
+            "${DOMAIN}/application/merge/validate")
+          echo "Response from validation: $RESPONSE"
 
-    - name: Install Dependencies
-      run: npm install axios
+          if [ "$RESPONSE" != "true" ]; then
+            echo "Error: Validation returned false"
+            exit 1
+          fi
 
-    - name: Run Script
-      env:
-        PR_NUMBER: ${{ github.event.pull_request.number }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        OWNER: ${{ github.event.repository.owner.login }}
-        REPO: ${{ github.event.repository.name }}
-      run: node .github/scripts/automerge-pr.mjs
+      - name: Validation Success
+        if: steps.validate.outcome == 'success'
+        run: echo "Validation successful!"
