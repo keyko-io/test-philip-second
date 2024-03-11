@@ -36,24 +36,14 @@
     "Weekly Allocation": "2GiB"
   },
   "Lifecycle": {
-    "State": "ReadyToSign",
-    "Validated At": "2024-03-11 13:52:27.640816972 UTC",
-    "Validated By": "AlexMCon",
+    "State": "Submitted",
+    "Validated At": "",
+    "Validated By": "",
     "Active": true,
-    "Updated At": "2024-03-11 13:52:27.640820383 UTC",
-    "Active Request ID": "d26a30fd-45b2-4798-a693-154bdc63cadc",
+    "Updated At": "2024-03-11 13:52:40.544679724 UTC",
+    "Active Request ID": "",
     "On Chain Address": "f1gavvrcgtksbr3p5g7clqx2xyji7usvdagd75may",
     "Multisig Address": "false"
   },
-  "Allocation Requests": [
-    {
-      "ID": "d26a30fd-45b2-4798-a693-154bdc63cadc",
-      "Request Type": "First",
-      "Created At": "2024-03-11 13:52:27.640821935 UTC",
-      "Updated At": "2024-03-11 13:52:27.640822819 UTC",
-      "Active": true,
-      "Allocation Amount": "2GiB",
-      "Signers": []
-    }
-  ]
+  "Allocation Requests": []
 }
